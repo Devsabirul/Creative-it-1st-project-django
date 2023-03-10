@@ -1,0 +1,208 @@
+{% extends 'index.html' %}
+{% block title %}profile {% endblock title %}
+{% block body %}
+
+<style>
+    select.form-select.ml-3.w-75 {
+        margin-left: 25px;
+        width: 85% !important;
+    }
+
+    input#formFileSm {
+        margin-left: 33px;
+        width: 65% !important;
+    }
+
+    .preview {
+        width: 50px;
+        height: 50px;
+        margin-left: 20px;
+        overflow: hidden;
+        border: 1px solid gray;
+        border-radius: 5px;
+        padding: 2px;
+    }
+
+    .preview img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        outline: none !important;
+        border: none !important;
+    }
+
+    .image {
+        width: 50px;
+        height: 50px;
+        overflow: hidden;
+    }
+
+    .image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    form.searchbox {
+        margin-left: 15px;
+    }
+
+    form.searchbox input {
+        outline: none;
+    }
+</style>
+<div class="container p-5">
+    <div class="header_content d-flex justify-content-between mb-3">
+        <div class="d-flex">
+            <h5 class="">Profiles:</h5>
+            <form action="" class="searchbox">
+                <input type="search" oninput="searchText()" placeholder="Search..." name="src" id="search">
+            </form>
+        </div>
+        <button class="btn btn-sm btn-primary float-end " type="button" data-toggle="modal"
+            data-target="#addProfileModel"> + Add Profile</button>
+    </div>
+    <div class="table_cotanier">
+        <table class="table table-bordered text-center">
+            <thead>
+                <tr class="">
+                    <th scope="col">Id</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Gander</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">Phone Number</th>
+                    <th scope="col">Address</th>
+                    <th scope="col">Facebook</th>
+                    <th scope="col">Image</th>
+                    <th scope="col">Action</th>
+                </tr>
+            </thead>
+
+            <tbody class="text-center">
+                {% if profile %}
+                {% for profile in profile %}
+                <tr>
+                    <td scope="row">{{forloop.counter}}</td>
+                    <td>{{profile.name}}</td>
+                    <td>{{profile.gander}}</td>
+                    <td>{{profile.email}}</td>
+                    <td>{{profile.phone_num}}</td>
+                    <td>{{profile.address}}</td>
+                    <td>{{profile.facebook}}</td>
+                    <td>
+                        <div class="image">
+                            <img src="{{profile.image.url}}" alt="">
+                        </div>
+                    </td>
+                    <td class="text-center">
+                        <a href="{% url 'Profile' profile.id %}" class="btn btn-primary btn-sm"><i
+                                class="fa-solid fa-eye"></i></a>
+                        <a href="{% url 'Update' profile.id %}" class="btn btn-secondary btn-sm"><i
+                                class="fa-solid fa-pen-to-square"></i></a>
+                        <a href="{% url 'Delete' profile.id %}" class="btn btn-danger btn-sm"><i
+                                class="fa-solid fa-trash"></i></a>
+                    </td>
+                </tr>
+                {% endfor %}
+                {% else %}
+                <tr>
+                    <td colspan="9" style="color: red; font-weight: 600; font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;">Empty data. please add profile </td>
+                </tr>
+                {% endif %}
+
+            </tbody>
+        </table>
+    </div>
+</div>
+<!-- add profile model  -->
+<div class="modal fade" id="addProfileModel" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Add Profile</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="container">
+                    <form method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <div class="form-group row p-2">
+                            <label for="namefield" class="col-sm-2 col-form-label">Name</label>
+                            <div class="col-sm-10">
+                                <input required type="text" name="name" class="form-control" id="namefield"
+                                    placeholder="Name">
+                            </div>
+                        </div>
+                        <div class="form-group row p-2">
+                            <label for="email" class="col-sm-2 col-form-label">Email</label>
+                            <div class="col-sm-10">
+                                <input required type="email" class="form-control" name="email" id="email"
+                                    placeholder="Email">
+                            </div>
+                        </div>
+                        <div class="form-group row p-2">
+                            <label for="phonenumber" class="col-sm-2 col-form-label"> Number</label>
+                            <div class="col-sm-10">
+                                <input required type="number" name="phonenumber" class="form-control" id="phonenumber"
+                                    placeholder="Phone Number">
+                            </div>
+                        </div>
+                        <div class="col-auto p-2 d-flex">
+                            <label class="mr-sm-2" for="inlineFormCustomSelect">Gander</label>
+                            <select class="form-select ml-3 w-75" aria-label="Default select example" name="gander">
+                                <option selected disabled>Choose...</option>
+                                <option value="male">Male</option>
+                                <option value="female">Female</option>
+                                <option value="others">Others</option>
+                            </select>
+
+                        </div>
+                        <div class="form-group row p-2">
+                            <label for="address" class="col-sm-2 col-form-label">Address</label>
+                            <div class="col-sm-10">
+                                <input required type="text" name="address" class="form-control" id="address"
+                                    placeholder="Address">
+                            </div>
+                        </div>
+                        <div class="form-group row p-2">
+                            <label for="facebook" class="col-sm-2 col-form-label">Facebook</label>
+                            <div class="col-sm-10">
+                                <input required type="text" name="facebook" class="form-control" id="facebook"
+                                    placeholder="facebook">
+                            </div>
+                        </div>
+                        <div class="mb-3 p-2 d-flex">
+                            <label for="formFileSm" class="form-label">Image</label>
+                            <input class="form-control w-75 form-control-sm" id="formFileSm" type="file" name="image"
+                                onchange="showImgPreview(event)">
+                            <div class="preview">
+                                <img id="preview_img" alt="">
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary">Save</button>
+                        </div>
+                    </form </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    // preview image 
+    function showImgPreview(event) {
+        console.log(event.target.files[0])
+        if (event.target.files.length > 0) {
+            var src = URL.createObjectURL(event.target.files[0]);
+            var preview = document.getElementById("preview_img");
+            preview.src = src;
+            preview.style.display = "block";
+        }
+    }
+</script>
+{% endblock body %}

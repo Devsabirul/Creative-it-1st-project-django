@@ -1,0 +1,89 @@
+{% extends 'index.html' %}
+{% block title %}
+Travel Planet
+{% endblock title %}
+{% block body %}
+<div class="container p-5">
+    <div class="header_content d-flex justify-content-between mb-3">
+        <h5 class="">Your Reservation:</h5>
+        <button class="btn btn-sm btn-primary float-end">Create New TravelPlanet</button>
+    </div>
+    <div class="table_cotanier">
+        <table class="table table-bordered text-center">
+            <thead>
+                <tr class="">
+                    <th scope="col">Id</th>
+                    <th scope="col">Hotel</th>
+                    <th scope="col">Arrival</th>
+                    <th scope="col">Departure</th>
+                    <th scope="col">Guests</th>
+                    <th scope="col">Price</th>
+                    <th scope="col">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th scope="row">1</th>
+                    <td>Merriott</td>
+                    <td>2022-01-12</td>
+                    <td>2023-02-12</td>
+                    <td>7</td>
+                    <td>$70,000</td>
+                    <td class="text-center">
+                        <button class="btn btn-secondary btn-sm">Edit</button>
+                        <button class="btn btn-danger btn-sm">Delete</button>
+                    </td>
+                </tr>
+                <tr>
+                    <th scope="row">2</th>
+                    <td>Merriott</td>
+                    <td>2022-01-12</td>
+                    <td>2023-02-12</td>
+                    <td>7</td>
+                    <td>$70,000</td>
+                    <td class="text-center">
+                        <button class="btn btn-secondary btn-sm">Edit</button>
+                        <button class="btn btn-danger btn-sm">Delete</button>
+                    </td>
+                </tr>
+                <tr>
+                    <th scope="row">3</th>
+                    <td>Merriott</td>
+                    <td>2022-01-12</td>
+                    <td>2023-02-12</td>
+                    <td>7</td>
+                    <td>$70,000</td>
+                    <td class="text-center">
+                        <button class="btn btn-secondary btn-sm">Edit</button>
+                        <button class="btn btn-danger btn-sm">Delete</button>
+                    </td>
+                </tr>
+                <tr>
+                    <th scope="row">4</th>
+                    <td>Merriott</td>
+                    <td>2022-01-12</td>
+                    <td>2023-02-12</td>
+                    <td>7</td>
+                    <td>$70,000</td>
+                    <td class="text-center">
+                        <button class="btn btn-secondary btn-sm">Edit</button>
+                        <button class="btn btn-danger btn-sm">Delete</button>
+                    </td>
+                </tr>
+                <tr>
+                    <th scope="row">5</th>
+                    <td>Merriott</td>
+                    <td>2022-01-12</td>
+                    <td>2023-02-12</td>
+                    <td>7</td>
+                    <td>$70,000</td>
+                    <td class="text-center">
+                        <button class="btn btn-secondary btn-sm">Edit</button>
+                        <button class="btn btn-danger btn-sm">Delete</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock body %}
